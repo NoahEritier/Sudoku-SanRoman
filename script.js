@@ -14,6 +14,7 @@ class SudokuGame {
     init() {
         this.createBoard();
         this.attachEventListeners();
+        this.loadTheme();
         this.newGame();
     }
 
@@ -46,6 +47,7 @@ class SudokuGame {
         document.getElementById('hint').addEventListener('click', () => this.giveHint());
         document.getElementById('solve').addEventListener('click', () => this.solvePuzzle());
         document.getElementById('difficulty').addEventListener('change', () => this.newGame());
+        document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
     }
 
     newGame() {
@@ -401,6 +403,27 @@ class SudokuGame {
         const messageElement = document.getElementById('message');
         messageElement.textContent = '';
         messageElement.className = 'message';
+    }
+
+    toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        
+        // Update theme icon
+        const themeIcon = document.querySelector('.theme-icon');
+        themeIcon.textContent = isDarkMode ? '☀️' : '🌙';
+        
+        // Save theme preference
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }
+
+    loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            const themeIcon = document.querySelector('.theme-icon');
+            themeIcon.textContent = '☀️';
+        }
     }
 }
 

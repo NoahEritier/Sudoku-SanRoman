@@ -4,30 +4,97 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --container-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-color: #667eea;
+    --info-bg: #f8f9fa;
+    --cell-bg: #ffffff;
+    --cell-fixed-bg: #e9ecef;
+    --cell-hover-bg: #f0f0f0;
+    --cell-selected-bg: #cfe2ff;
+    --cell-border: #ccc;
+    --board-border: #333;
+    --input-color: #333;
+}
+
+body.dark-mode {
+    --bg-gradient-start: #1a1a2e;
+    --bg-gradient-end: #16213e;
+    --container-bg: #0f3460;
+    --text-primary: #e8e8e8;
+    --text-secondary: #b8b8b8;
+    --accent-color: #53a8f4;
+    --info-bg: #1a2942;
+    --cell-bg: #1e3a5f;
+    --cell-fixed-bg: #2a4a6f;
+    --cell-hover-bg: #2a4d73;
+    --cell-selected-bg: #3d5a80;
+    --cell-border: #4a6fa5;
+    --board-border: #53a8f4;
+    --input-color: #e8e8e8;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    transition: background 0.3s ease;
 }
 
 .container {
-    background: white;
+    background: var(--container-bg);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     max-width: 600px;
     width: 100%;
+    transition: background 0.3s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 h1 {
     text-align: center;
-    color: #667eea;
-    margin-bottom: 20px;
+    color: var(--accent-color);
     font-size: 2.5em;
+    margin: 0;
+    flex: 1;
+}
+
+.theme-toggle {
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-icon {
+    font-size: 1.5em;
 }
 
 .game-info {
@@ -35,8 +102,9 @@ h1 {
     justify-content: space-around;
     margin-bottom: 20px;
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--info-bg);
     border-radius: 10px;
+    transition: background 0.3s ease;
 }
 
 .info-item {
@@ -48,23 +116,25 @@ h1 {
 
 .label {
     font-size: 0.9em;
-    color: #666;
+    color: var(--text-secondary);
     font-weight: 600;
 }
 
 #difficulty {
     padding: 5px 10px;
-    border: 2px solid #667eea;
+    border: 2px solid var(--accent-color);
     border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
-    background: white;
+    background: var(--cell-bg);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 #timer, #errors {
     font-size: 1.2em;
     font-weight: bold;
-    color: #667eea;
+    color: var(--accent-color);
 }
 
 #sudoku-board {
@@ -73,22 +143,23 @@ h1 {
     gap: 0;
     margin: 20px auto;
     width: fit-content;
-    border: 3px solid #333;
-    background: #333;
+    border: 3px solid var(--board-border);
+    background: var(--board-border);
+    transition: all 0.3s ease;
 }
 
 .cell {
     width: 50px;
     height: 50px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--cell-border);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5em;
     font-weight: bold;
     cursor: pointer;
-    background: white;
-    transition: all 0.2s;
+    background: var(--cell-bg);
+    transition: all 0.3s;
 }
 
 .cell input {
@@ -100,24 +171,26 @@ h1 {
     font-weight: bold;
     background: transparent;
     outline: none;
+    color: var(--input-color);
+    transition: color 0.3s ease;
 }
 
 .cell.fixed {
-    background: #e9ecef;
-    color: #333;
+    background: var(--cell-fixed-bg);
+    color: var(--text-primary);
 }
 
 .cell.fixed input {
     cursor: not-allowed;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .cell.editable:hover {
-    background: #f0f0f0;
+    background: var(--cell-hover-bg);
 }
 
 .cell.selected {
-    background: #cfe2ff;
+    background: var(--cell-selected-bg);
 }
 
 .cell.error {
@@ -136,12 +209,12 @@ h1 {
 
 /* Thick borders for 3x3 boxes */
 .cell:nth-child(3n) {
-    border-right: 3px solid #333;
+    border-right: 3px solid var(--board-border);
 }
 
 .cell:nth-child(n+19):nth-child(-n+27),
 .cell:nth-child(n+46):nth-child(-n+54) {
-    border-bottom: 3px solid #333;
+    border-bottom: 3px solid var(--board-border);
 }
 
 .controls {
