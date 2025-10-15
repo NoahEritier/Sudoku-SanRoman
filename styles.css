@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.label {
+    font-size: 0.9em;
+    color: #666;
+    font-weight: 600;
+}
+
+#difficulty {
+    padding: 5px 10px;
+    border: 2px solid #667eea;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    background: white;
+}
+
+#timer, #errors {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+#sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0;
+    margin: 20px auto;
+    width: fit-content;
+    border: 3px solid #333;
+    background: #333;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+}
+
+.cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: transparent;
+    outline: none;
+}
+
+.cell.fixed {
+    background: #e9ecef;
+    color: #333;
+}
+
+.cell.fixed input {
+    cursor: not-allowed;
+    color: #333;
+}
+
+.cell.editable:hover {
+    background: #f0f0f0;
+}
+
+.cell.selected {
+    background: #cfe2ff;
+}
+
+.cell.error {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.cell.correct {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.cell.highlight {
+    background: #fff3cd;
+}
+
+/* Thick borders for 3x3 boxes */
+.cell:nth-child(3n) {
+    border-right: 3px solid #333;
+}
+
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 3px solid #333;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+.message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 2px solid #bee5eb;
+}
+
+@media (max-width: 600px) {
+    .cell {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2em;
+    }
+    
+    .cell input {
+        font-size: 1.2em;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+}
